@@ -8,7 +8,7 @@ with transparency
 
 ## Dev
 
-1. Have `npm` with either [Node.js](http://nodejs.org/) or [io.js](http://iojs.org/)
+1. Have `npm` (from [node.js](http://nodejs.org/) or [io.js](http://iojs.org/))
 
 2. Run `npm install` in the project directory
 
@@ -17,9 +17,12 @@ with transparency
 
 ## Todo
 
-* Provide downloads
+* Downloads
 
-* Provide screenshots
+* Screenshots
+
+* Proper screensaver functionality
+  (exit upon input)
 
 * Configure any URL
   (not from the code, that doesn't count)

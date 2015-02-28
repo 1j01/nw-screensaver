@@ -21,15 +21,7 @@
     "app",
     "desktop"
   ],
-  "main": "app/index.html",
-  "scripts": {
-    "start": "nwbuild -r app",
-    "build": "nwbuild -p win,linux,osx app"
-  },
-  "devDependencies": {
-    "chokidar": "^0.12.5",
-    "node-webkit-builder": "^1.0.10"
-  },
+  "main": "index.html",
   "window": {
     "title": "Screensaver",
     "toolbar": false,
