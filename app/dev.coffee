@@ -12,7 +12,7 @@ if process?
 	process.on "uncaughtException", (e)->
 		console?.warn? "CRASH" unless window.CRASHED; window.CRASHED = true
 		nwwin.showDevTools()
-		nwwin.show() if nwgui.manifest.window?.show is false
+		nwwin.show() if nwgui.App.manifest.window?.show is false
 	
 	# Live reload
 	try
