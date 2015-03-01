@@ -21,7 +21,7 @@
     "app",
     "desktop"
   ],
-  "main": "index.html",
+  "main": "app.html",
   "window": {
     "title": "Screensaver",
     "toolbar": false,
