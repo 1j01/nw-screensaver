@@ -27,3 +27,5 @@ with transparency
 * Configure any URL
   (not from the code, that doesn't count)
 
+* Icon
+

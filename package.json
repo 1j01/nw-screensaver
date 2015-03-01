@@ -1,7 +1,7 @@
 {
   "name": "nw-screensaver",
-  "description": "An NW.js screensaver with transparency",
-  "version": "1.0.0",
+  "description": "A web-based screensaver with transparency and multi-monitor support",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/nw-screensaver.git"
@@ -23,22 +23,13 @@
   ],
   "main": "app/index.html",
   "scripts": {
-    "start": "nwbuild -r app",
-    "build": "nwbuild -p win,linux,osx app"
+    "start": "cake run",
+    "build": "cake build"
   },
   "devDependencies": {
     "chokidar": "^0.12.5",
+    "coffee-script": "^1.9.1",
+    "glob": "^4.4.1",
     "node-webkit-builder": "^1.0.10"
-  },
-  "window": {
-    "title": "Screensaver",
-    "toolbar": false,
-    "transparent": true,
-    "fullscreen": false,
-    "frame": false,
-    "resizable": false,
-    "visible-on-all-workspaces": true,
-    "always-on-top": false,
-    "show": false
   }
 }
