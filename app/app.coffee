@@ -21,15 +21,23 @@ win.y = bounds.min_y
 win.width = bounds.max_x - bounds.min_x
 win.height = bounds.max_y - bounds.min_y
 
+
 wv.addEventListener "contentload", ->
-	win.show()
 	wv.insertCSS code: "
 		* {
 			background: transparent !important;
 		}
 	"
+	# waiting a tenth of a second means the window won't
+	# occasionally appear for a split second as a default-sized opaque
+	# (but borderless) window in the top left corner when starting up
+	setTimeout ->
+		win.show()
+	, 100
 
-exit = (event)-> process.exit()
+
+exit = (event)->
+	process.exit() unless win.isDevToolsOpen()
 
 min_dist_mouse_moved_to_exit = 30
 start = null

@@ -5,8 +5,6 @@ if process?
 	nwgui = require 'nw.gui'
 	nwwin = nwgui.Window.get()
 	
-	nwwin.show() if (require './package.json').window?.show is no
-	
 	# Get rid of the shitty broken error handler
 	process.removeAllListeners "uncaughtException"
 	
@@ -14,7 +12,8 @@ if process?
 	process.on "uncaughtException", (e)->
 		console?.warn? "CRASH" unless window.CRASHED; window.CRASHED = true
 		nwwin.showDevTools()
-
+		nwwin.show() if nwgui.manifest.window?.show is false
+	
 	# Live reload
 	try
 		chokidar = require 'chokidar'
@@ -26,7 +25,7 @@ if process?
 			location?.reload()
 	catch e
 		console.warn "Live reload error:", e.stack
-
+	
 	window.addEventListener "keydown", (e)->
 		if e.keyCode is 123 # F12
 			if nwwin.isDevToolsOpen()
