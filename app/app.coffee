@@ -41,33 +41,58 @@ do mega_fullscreen = ->
 	win.height = bounds.max_y - bounds.min_y
 
 
-###
+
 do handle_arguments = ->
+	
+	show_settings = ->
+		global.settings_window ?= nwgui.Window.open("settings.html",
+			"title": "Screensaver Settings"
+			"toolbar": false
+			"transparent": false
+			"fullscreen": false
+			"frame": true
+			"resizable": true
+			"visible-on-all-workspaces": false
+			"always-on-top": false
+			"show": true
+		)
+		console.log global.sw = global.settings_window
+		console.log global.settings_window.focus
+		global.settings_window.setAlwaysOnTop yes
+		global.settings_window.on "close", ->
+			nwgui.App.quit()
+		#global.settings_window.focus()
+	
 	console.log nwgui.App.argv, nwgui.App
 	switch nwgui.App.argv[0].toLowerCase()
 		when "/c"
 			# Show the Settings dialog box, modal to the foreground window.
+			show_settings()
 		when "/p"
 			# Preview Screen Saver as child of window <HWND>.
+			process.exit()
 		when "/s"
 			# Run the Screen Saver.
+			do ->
 		else
 			# Show the Settings dialog box.
-###
+			#show_settings()
+			do ->
+
 
 
 do exit_upon_input = ->
 	
 	exit = (event)->
-		process.exit() unless win.isDevToolsOpen()
+		process.exit() unless win.isDevToolsOpen() or global.settings_window
 
-	min_dist_mouse_moved_to_exit = 30
+	exit_distance = 30
 	start = null
 	track = (event)->
 		start ?= event
 		dx2 = (start.clientX - event.clientX) ** 2
 		dy2 = (start.clientY - event.clientY) ** 2
-		exit() if dx2 + dy2 >= min_dist_mouse_moved_to_exit ** 2
+		exit() if dx2 + dy2 >= exit_distance ** 2
 
 	window.addEventListener "mousemove", track
 	window.addEventListener "mousedown", exit

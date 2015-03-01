@@ -13,6 +13,7 @@ nw.on 'log', console.log
 task 'build', ->
 	nw.build()
 		.then ->
+			console.log '(done build)'
 			glob "build/*/win*/*.exe", (err, files)->
 				return console.error err if err
 				for file in files
@@ -21,15 +22,13 @@ task 'build', ->
 							console.error err
 						else
 							console.log "renamed #{file} to *.scr"
-
-			console.log '(done)'
 		.catch (error)->
 			console.error(error)
 
 task 'run', ->
 	nw.run()
 		.then ->
-			console.log '(done)'
+			console.log '(done running)'
 		.catch (error)->
 			console.error error
 

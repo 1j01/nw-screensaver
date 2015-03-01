@@ -26,5 +26,13 @@ with transparency
 * Configure any URL
   (not from the code, that doesn't count)
 
+* Let you hide elements from the page
+  (Things like controls, links back to homepages...)
+  * Presets for things like Codepen
+  * Shortcuts to temporarily show these elements and allow interaction
+
+
+* Automatic offline support?
+
 * Icon
 
