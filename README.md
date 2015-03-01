@@ -21,8 +21,7 @@ with transparency
 
 * Screenshots
 
-* Proper screensaver functionality
-  (exit upon input)
+* Handle [Windows screensaver flags](https://support.microsoft.com/kb/182383)
 
 * Configure any URL
   (not from the code, that doesn't count)

@@ -29,4 +29,20 @@ wv.addEventListener "contentload", ->
 		}
 	"
 
+exit = (event)-> process.exit()
+
+min_dist_mouse_moved_to_exit = 30
+start = null
+track = (event)->
+	start ?= event
+	dx2 = (start.clientX - event.clientX) ** 2
+	dy2 = (start.clientY - event.clientY) ** 2
+	exit() if dx2 + dy2 >= min_dist_mouse_moved_to_exit ** 2
+
+window.addEventListener "mousemove", track
+window.addEventListener "mousedown", exit
+window.addEventListener "touchstart", exit
+window.addEventListener "keypress", exit
+window.addEventListener "keydown", exit
+window.addEventListener "click", exit
 
