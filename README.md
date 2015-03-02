@@ -21,18 +21,29 @@ with transparency
 
 * Screenshots
 
+* Application Icon
+
 * Handle [Windows screensaver flags](https://support.microsoft.com/kb/182383)
 
-* Configure any URL
+* Configure any URL or local path
   (not from the code, that doesn't count)
 
 * Let you hide elements from the page
-  (Things like controls, links back to homepages...)
+  (Things like controls,
+  headers and footers,
+  other interactive elements...)
   * Presets for things like Codepen
-  * Shortcuts to temporarily show these elements and allow interaction
+  * Or just dynamically search for canvases
+    and by default hide other stuff
+    (as long as there's at least one canvas)
+  * Shortcut(s?) to temporarily show these elements and allow interaction
 
 
-* Automatic offline support?
+* (Automatic?) offline support?
+  (Maybe some crazy hack
+  forcefully setting the <html manifest> attribute
+  to load a CACHE MANIFEST that specifies everything stuff to be cached?)
+  Maybe try to hook into chromes Save Webpage functionality...
+  Maybe just tell users to download webpages locally with their browser.
 
-* Icon
 

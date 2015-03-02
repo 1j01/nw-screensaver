@@ -21,7 +21,7 @@
     "app",
     "desktop"
   ],
-  "main": "app/index.html",
+  "main": "app/app.html",
   "scripts": {
     "start": "cake run",
     "build": "cake build"

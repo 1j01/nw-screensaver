@@ -2,11 +2,34 @@
 nwgui = require "nw.gui"
 {screens} = nwgui.Screen.Init()
 win = window.win = nwgui.Window.get()
-wv = window.wv = document.querySelector "webview"
 
 
+
+win_hidden = no
+
+show = ->
+	win_hidden = no
+	global.settings_window?.setAlwaysOnTop yes
+	win.show()
+	win.setTransparent yes
+	win.setVisibleOnAllWorkspaces yes
+	win.setShowInTaskbar no # this doesn't work consistently
+	setTimeout -> # so... yeah
+		win.setShowInTaskbar no
+	, 50
+
+hide = ->
+	win.hide()
+	win_hidden = yes
+	global.settings_window?.setAlwaysOnTop no
+
+
+
+wv = window.wv = document.body.appendChild document.createElement "webview"
+wv.allowtransparency = on
 
 wv.addEventListener "contentload", ->
+	console.log "contentload", wv.src
 	wv.insertCSS code: "
 		* {
 			background: transparent !important;
@@ -15,9 +38,19 @@ wv.addEventListener "contentload", ->
 	# waiting a tenth of a second means the window won't
 	# occasionally appear for a split second as a default-sized opaque
 	# (but borderless) window in the top left corner when starting up
-	setTimeout ->
-		win.show()
-	, 100
+	setTimeout show, 100
+
+wv.addEventListener "loadabort", ->
+	console.log "loadabort"
+	unless wv.src.match /error.html/
+		wv.src = "error.html"
+		
+
+do updateURL = ->
+	wv.src = localStorage["url"] ?= "http://isaiahodhner.ml/pipes/"
+	console.log wv.src
+
+window.addEventListener "storage", updateURL
 
 
 
@@ -45,22 +78,26 @@ do mega_fullscreen = ->
 do handle_arguments = ->
 	
 	show_settings = ->
-		global.settings_window ?= nwgui.Window.open("settings.html",
+		global.settings_window ?= nwgui.Window.open "settings.html",
 			"title": "Screensaver Settings"
 			"toolbar": false
 			"transparent": false
-			"fullscreen": false
 			"frame": true
 			"resizable": true
 			"visible-on-all-workspaces": false
 			"always-on-top": false
 			"show": true
-		)
+		
 		console.log global.sw = global.settings_window
 		console.log global.settings_window.focus
 		global.settings_window.setAlwaysOnTop yes
 		global.settings_window.on "close", ->
 			nwgui.App.quit()
+		global.settings_window.on "focus", ->
+			if win_hidden
+				show()
+				global.settings_window.focus()
+			
 		#global.settings_window.focus()
 	
 	console.log nwgui.App.argv, nwgui.App
@@ -76,7 +113,7 @@ do handle_arguments = ->
 			do ->
 		else
 			# Show the Settings dialog box.
-			#show_settings()
+			show_settings()
 			do ->
 
 
@@ -93,11 +130,19 @@ do exit_upon_input = ->
 		dx2 = (start.clientX - event.clientX) ** 2
 		dy2 = (start.clientY - event.clientY) ** 2
 		exit() if dx2 + dy2 >= exit_distance ** 2
-
+	
+	press = (event)->
+		event.preventDefault()
+		if global.settings_window
+			global.settings_window.minimize()
+			hide()
+		else
+			exit()
+	
 	window.addEventListener "mousemove", track
-	window.addEventListener "mousedown", exit
-	window.addEventListener "touchstart", exit
+	window.addEventListener "mousedown", press
+	window.addEventListener "touchstart", press
 	window.addEventListener "keypress", exit
 	window.addEventListener "keydown", exit
-	window.addEventListener "click", exit
+	window.addEventListener "click", press
 

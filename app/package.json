@@ -26,11 +26,9 @@
     "title": "Screensaver",
     "toolbar": false,
     "transparent": true,
-    "fullscreen": false,
     "frame": false,
     "resizable": false,
     "visible-on-all-workspaces": true,
-    "always-on-top": false,
     "show": false
   }
 }
