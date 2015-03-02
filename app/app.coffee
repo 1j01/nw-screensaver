@@ -15,8 +15,8 @@ show = ->
 	win.setVisibleOnAllWorkspaces yes
 	win.setShowInTaskbar no # this doesn't work consistently
 	setTimeout -> # so... yeah
-		win.setShowInTaskbar no
-	, 50
+		win.setShowInTaskbar no # now it does
+	, 50 # idk
 
 hide = ->
 	win.hide()

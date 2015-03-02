@@ -1,6 +1,5 @@
 
 container = undefined
-stats = undefined
 camera = undefined
 scene = undefined
 renderer = undefined
@@ -102,11 +101,8 @@ init = ->
 	triangleShape.moveTo 0, 80
 	triangleShape.lineTo -50, 0
 	triangleShape.lineTo +50, 0
-	#triangleShape.closePath()
-	#triangleShape.lineTo 0, 80
 	
 	dot = new (THREE.Path)
-	#dot.moveTo 0, 12+8
 	dot.absellipse 0, 12, 8, 8, 0, Math.PI * 2, true
 	triangleShape.holes.push dot
 	
@@ -128,20 +124,9 @@ init = ->
 	mark.quadraticCurveTo x + width_bottom/2, y, x + width_bottom/2 - radius, y
 	mark.lineTo x - width_bottom/2 + radius, y
 	mark.quadraticCurveTo x - width_bottom/2, y, x - width_bottom/2, y + radius
-	#mark.lineTo x - width_bottom/2, y + radius
-	#mark.closePath()
-	
-	
-	# mark.moveTo 0, 30
-	# mark.quadraticCurveTo 40, 60, 20, 40
-	# mark.bezierCurveTo 20, 45, 20, 50, 20, 60
-	# #mark.quadraticCurveTo 40, 80, 20, 60
-	# mark.quadraticCurveTo 5, 50, 0, 30
-	# mark.absellipse 0, 45, 8, 20, 0, Math.PI * 2.1, true
 	triangleShape.holes.push mark
 	
-	#
-	extrudeSettings = 
+	extrudeSettings =
 		amount: 4
 		bevelEnabled: yes
 		bevelSegments: 2
@@ -157,10 +142,6 @@ init = ->
 	renderer.setPixelRatio window.devicePixelRatio
 	renderer.setSize window.innerWidth, window.innerHeight
 	container.appendChild renderer.domElement
-	stats = new Stats
-	stats.domElement.style.position = 'absolute'
-	stats.domElement.style.top = '0px'
-	container.appendChild stats.domElement
 	document.addEventListener 'mousedown', onDocumentMouseDown, false
 	document.addEventListener 'touchstart', onDocumentTouchStart, false
 	document.addEventListener 'touchmove', onDocumentTouchMove, false
@@ -219,11 +200,9 @@ onDocumentTouchMove = (event) ->
 	return
 
 #
-
 animate = ->
 	requestAnimationFrame animate
 	render()
-	stats.update()
 	return
 
 render = ->
