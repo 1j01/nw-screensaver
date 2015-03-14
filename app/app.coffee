@@ -1,6 +1,6 @@
 
 nwgui = require "nw.gui"
-{screens} = nwgui.Screen.Init()
+Screen = nwgui.Screen.Init()
 win = window.win = nwgui.Window.get()
 
 
@@ -62,7 +62,7 @@ do mega_fullscreen = ->
 		max_x: -Infinity
 		max_y: -Infinity
 
-	for screen in screens
+	for screen in Screen.screens
 		bounds.min_x = Math.min bounds.min_x, screen.bounds.x
 		bounds.min_y = Math.min bounds.min_y, screen.bounds.y
 		bounds.max_x = Math.max bounds.max_x, screen.bounds.x + screen.bounds.width
@@ -72,6 +72,15 @@ do mega_fullscreen = ->
 	win.y = bounds.min_y
 	win.width = bounds.max_x - bounds.min_x
 	win.height = bounds.max_y - bounds.min_y
+	
+update_mega_fullscreen = ->
+	setTimeout ->
+		do mega_fullscreen
+	, 150
+
+Screen.on "displayBoundsChanged", update_mega_fullscreen
+Screen.on "displayAdded", update_mega_fullscreen
+Screen.on "displayRemoved", update_mega_fullscreen
 
 
 
