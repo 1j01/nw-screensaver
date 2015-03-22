@@ -10,7 +10,8 @@ if process?
 	
 	# Add our own handler
 	process.on "uncaughtException", (e)->
-		console?.warn? "CRASH" unless window.CRASHED; window.CRASHED = true
+		console?.warn? "CRASH" unless window.CRASHED
+		window.CRASHED = true
 		nwwin.showDevTools() unless nwwin.isDevToolsOpen()
 		nwwin.show() if nwgui.App.manifest.window?.show is false
 	
@@ -24,7 +25,7 @@ if process?
 			nwwin.closeDevTools()
 			location?.reload()
 	catch e
-		console.warn "Live reload error:", e.stack
+		console.warn "Live reload disabled:", e.stack
 	
 	window.addEventListener "keydown", (e)->
 		if e.keyCode is 123 # F12
@@ -34,5 +35,6 @@ if process?
 				nwwin.showDevTools()
 
 window.onerror = (e)->
-	console?.warn? "CRASH" unless window.CRASHED; window.CRASHED = true
+	console?.warn? "CRASH" unless window.CRASHED
+	window.CRASHED = true
 	console?.error? "Got exception:", e

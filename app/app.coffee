@@ -14,7 +14,7 @@ show = ->
 	win.setTransparent yes
 	win.setVisibleOnAllWorkspaces yes
 	win.setShowInTaskbar no # this doesn't work consistently
-	setTimeout -> # so... yeah
+	setTimeout -> # so...
 		win.setShowInTaskbar no # now it does
 	, 50 # idk
 
@@ -29,7 +29,6 @@ wv = window.wv = document.body.appendChild document.createElement "webview"
 wv.allowtransparency = on
 
 wv.addEventListener "contentload", ->
-	console.log "contentload", wv.src
 	wv.insertCSS code: "
 		* {
 			background: transparent !important;
@@ -41,14 +40,12 @@ wv.addEventListener "contentload", ->
 	setTimeout show, 100
 
 wv.addEventListener "loadabort", ->
-	console.log "loadabort"
 	unless wv.src.match /error.html/
 		wv.src = "error.html"
 		
 
 do updateURL = ->
 	wv.src = localStorage["url"] ?= "http://isaiahodhner.ml/pipes/"
-	console.log wv.src
 
 window.addEventListener "storage", updateURL
 
@@ -74,9 +71,7 @@ do mega_fullscreen = ->
 	win.height = bounds.max_y - bounds.min_y
 	
 update_mega_fullscreen = ->
-	setTimeout ->
-		do mega_fullscreen
-	, 150
+	setTimeout mega_fullscreen, 150
 
 Screen.on "displayBoundsChanged", update_mega_fullscreen
 Screen.on "displayAdded", update_mega_fullscreen
@@ -97,8 +92,6 @@ do handle_arguments = ->
 			"always-on-top": false
 			"show": true
 		
-		console.log global.sw = global.settings_window
-		console.log global.settings_window.focus
 		global.settings_window.setAlwaysOnTop yes
 		global.settings_window.on "close", ->
 			nwgui.App.quit()
@@ -106,10 +99,7 @@ do handle_arguments = ->
 			if win_hidden
 				show()
 				global.settings_window.focus()
-			
-		#global.settings_window.focus()
 	
-	console.log nwgui.App.argv, nwgui.App
 	switch (nwgui.App.argv[0] ? "").toLowerCase()
 		when "/c"
 			# Show the Settings dialog box, modal to the foreground window.
