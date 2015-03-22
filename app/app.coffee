@@ -110,7 +110,7 @@ do handle_arguments = ->
 		#global.settings_window.focus()
 	
 	console.log nwgui.App.argv, nwgui.App
-	switch nwgui.App.argv[0].toLowerCase()
+	switch (nwgui.App.argv[0] ? "").toLowerCase()
 		when "/c"
 			# Show the Settings dialog box, modal to the foreground window.
 			show_settings()
@@ -123,7 +123,6 @@ do handle_arguments = ->
 		else
 			# Show the Settings dialog box.
 			show_settings()
-			do ->
 
 
 
