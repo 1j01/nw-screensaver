@@ -1,8 +1,6 @@
 
 nwgui = require "nw.gui"
-Screen = nwgui.Screen.Init()
 win = window.win = nwgui.Window.get()
-
 
 
 win_hidden = no
@@ -50,33 +48,7 @@ do updateURL = ->
 window.addEventListener "storage", updateURL
 
 
-
-do mega_fullscreen = ->
-	
-	bounds =
-		min_x: +Infinity
-		min_y: +Infinity
-		max_x: -Infinity
-		max_y: -Infinity
-
-	for screen in Screen.screens
-		bounds.min_x = Math.min bounds.min_x, screen.bounds.x
-		bounds.min_y = Math.min bounds.min_y, screen.bounds.y
-		bounds.max_x = Math.max bounds.max_x, screen.bounds.x + screen.bounds.width
-		bounds.max_y = Math.max bounds.max_y, screen.bounds.y + screen.bounds.height
-
-	win.x = bounds.min_x
-	win.y = bounds.min_y
-	win.width = bounds.max_x - bounds.min_x
-	win.height = bounds.max_y - bounds.min_y
-	
-update_mega_fullscreen = ->
-	setTimeout mega_fullscreen, 150
-
-Screen.on "displayBoundsChanged", update_mega_fullscreen
-Screen.on "displayAdded", update_mega_fullscreen
-Screen.on "displayRemoved", update_mega_fullscreen
-
+win.enterMegaFullscreen()
 
 
 do handle_arguments = ->
@@ -115,12 +87,11 @@ do handle_arguments = ->
 			show_settings()
 
 
-
 do exit_upon_input = ->
 	
 	exit = (event)->
 		process.exit() unless win.isDevToolsOpen() or global.settings_window
-
+	
 	exit_distance = 30
 	start = null
 	track = (event)->
@@ -129,7 +100,7 @@ do exit_upon_input = ->
 		dy2 = (start.clientY - event.clientY) ** 2
 		exit() if dx2 + dy2 >= exit_distance ** 2
 	
-	press = (event)->
+	hit = (event)->
 		event.preventDefault()
 		if global.settings_window
 			global.settings_window.minimize()
@@ -138,9 +109,9 @@ do exit_upon_input = ->
 			exit()
 	
 	window.addEventListener "mousemove", track
-	window.addEventListener "mousedown", press
-	window.addEventListener "touchstart", press
+	window.addEventListener "mousedown", hit
+	window.addEventListener "touchstart", hit
 	window.addEventListener "keypress", exit
 	window.addEventListener "keydown", exit
-	window.addEventListener "click", press
+	window.addEventListener "click", hit
 
