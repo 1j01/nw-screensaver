@@ -14,6 +14,7 @@ show = ->
 	setTimeout -> # so...
 		win.setShowInTaskbar no # now it does
 	, 50 # idk
+	switch_later()
 
 hide = ->
 	win.hide()
@@ -30,6 +31,27 @@ current = 0
 window.addEventListener "message", (e)->
 	console.log "Received title:", e.data.title
 
+switch_later_tid = null
+switch_later = ->
+	clearTimeout switch_later_tid
+	console.log "I'll switch later"
+	switch_later_tid = setTimeout ->
+		console.log "win_hidden=#{win_hidden}"
+		unless win_hidden
+			console.log "Current is #{current}"
+			next = Number(current) + 1
+			console.log "Next up is #{next}"
+			unless get next, "url"
+				console.log "Actually that url is #{get next, "url"}, so..."
+				next = 0
+				console.log "Next up is #{next}"
+			unless "#{next}" is "#{current}"
+				console.log "Next url is #{get next, "url"}"
+				if get next, "url"
+					localStorage.current = next
+					updateURL()
+	, 1000 * 30
+
 wv.addEventListener "contentload", ->
 	fn = ->
 		window.addEventListener "message", (e)->
@@ -40,7 +62,7 @@ wv.addEventListener "contentload", ->
 	
 	wv.executeScript code: "(#{fn})()"
 	
-	wv.contentWindow?.postMessage command: "getTitle", "*"
+	# wv.contentWindow???.postMessage command: "getTitle", "*"
 	
 	wv.insertCSS code: "
 		* {
@@ -52,18 +74,30 @@ wv.addEventListener "contentload", ->
 	# occasionally appear for a split second as a default-sized opaque
 	# (but borderless) window in the top left corner when starting up
 	setTimeout show, 100
+	
+	switch_later()
 
+# wv.addEventListener "loadstop", ->
+# 	console.log "The page has stopped loading."
+# 	console.log "Here's the contentWindow:", wv.contentWindow
+# 	global.settings_window.console.log "The page has stopped loading."
+# 	global.settings_window.console.log "Here's the contentWindow:", wv.contentWindow
 
 wv.addEventListener "loadabort", ->
 	unless wv.src.match /error\.html/
 		wv.src = "error.html"
+	switch_later()
 
 last_url = null
 do updateURL = ->
 	current = localStorage.current ? 0
 	url = get current, "url"
+	console.log "Update to #{url} at #{current}?"
 	if url isnt last_url
+		console.log "Yes!"
 		wv.src = last_url = url
+	else
+		console.log "No!"
 
 window.addEventListener "storage", updateURL
 
