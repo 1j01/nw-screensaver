@@ -91,14 +91,14 @@ renderer.setPixelRatio window.devicePixelRatio
 renderer.setSize window.innerWidth, window.innerHeight
 document.body.appendChild renderer.domElement
 
-window.addEventListener 'resize', onWindowResize, false
-
 
 onWindowResize = ->
 	camera.aspect = window.innerWidth / window.innerHeight
 	camera.updateProjectionMatrix()
 	renderer.setSize window.innerWidth, window.innerHeight
 	return
+
+window.addEventListener 'resize', onWindowResize, false
 
 render = ->
 	warning.update() for warning in warnings

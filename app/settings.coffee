@@ -6,19 +6,16 @@ class ScreensaverConfigView
 		
 		x = @element.appendChild document.createElement "button"
 		x.className = "x"
-		# x.innerHTML = "<span>✕</span>"
 		x.innerHTML = "✕"
 		x.onclick = =>
 			if localStorage.current is "#{n}"
 				localStorage.current = 0 # ??
 			unset n, "url"
 			unset n, "title"
-			# @element.classList.add "removed"
 			@element.style.display = "none"
 		
 		h1 = @element.appendChild document.createElement "h1"
 		h1.contentEditable = on
-		
 		
 		h1.innerHTML = title if title?
 		
@@ -44,10 +41,6 @@ class ScreensaverConfigView
 		
 		input.onpaste = input.onchange = =>
 			new_url = input.value
-			# if @element.classList.contains "ephemeral"
-			# 	set "new", "url", new_url
-			# 	unset "new", "result"
-			# else
 			# @TODO: add http:// protocol if missing
 			set n, "url", new_url
 			localStorage.current = n

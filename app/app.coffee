@@ -1,8 +1,6 @@
 
 nwgui = require "nw.gui"
 win = window.win = nwgui.Window.get()
-global.screensaver_window = win
-# win.showDevTools()
 
 win_hidden = no
 
@@ -33,9 +31,6 @@ window.addEventListener "message", (e)->
 	console.log "Received title:", e.data.title
 
 wv.addEventListener "contentload", ->
-	# console.log wv.document, wv.document?.title
-	# unless get current, "title"
-	# 	set current, "title", wv.document.title
 	fn = ->
 		window.addEventListener "message", (e)->
 			respond = (data)-> e.source.postMessage data, e.origin
@@ -58,13 +53,8 @@ wv.addEventListener "contentload", ->
 	# (but borderless) window in the top left corner when starting up
 	setTimeout show, 100
 
-trying_new_page = no
 
 wv.addEventListener "loadabort", ->
-	# if trying_new_page
-	# 	set "new", "url", null
-	# 	set "new", "result", "error"
-	# else
 	unless wv.src.match /error\.html/
 		wv.src = "error.html"
 
@@ -72,15 +62,6 @@ last_url = null
 do updateURL = ->
 	current = localStorage.current ? 0
 	url = get current, "url"
-	# url = get "new", "url"
-	# if url
-	# 	trying_new_page = yes
-	# else
-	# 	trying_new_page = no
-	# 	
-	# 	url = get current, "url"
-	# 	# url = (get "current", "url") ? (get 0, "url")
-	# if wv.src isnt url
 	if url isnt last_url
 		wv.src = last_url = url
 
