@@ -1,7 +1,7 @@
 
 # NW Screensaver
 
-A web screensaver built with [NW.js](http://nwjs.io/)
+A web screensaver built with [nw.js](http://nwjs.io/)
 supporting multi-monitor fullscreen
 with transparency
 
@@ -10,40 +10,53 @@ with transparency
 
 1. Have `npm` (from [node.js](http://nodejs.org/) or [io.js](http://iojs.org/))
 
-2. Run `npm install` in the project directory
+2. Run `npm install` in the project directory (or `npm i`)
 
 3. Run `npm start` in the project directory
 
 
 ## Todo
 
-* Downloads
+* Package as a distributable installer
 
 * Screenshots
 
 * Application Icon
 
-* Handle [Windows screensaver flags](https://support.microsoft.com/kb/182383)
+* Allow local html pages from pasted file paths and from a Browse button
 
-* Configure any URL or local path
-  (not from the code, that doesn't count)
+* If there's at least one canvas on the page,
+  hide everything that's not a canvas element
+  or an ancestor of a canvas element.
 
-* Let you hide elements from the page
-  (Things like controls,
-  headers and footers,
-  other interactive elements...)
-  * Presets for things like Codepen
-  * Or just dynamically search for canvases
-    and by default hide other stuff
-    (as long as there's at least one canvas)
-  * Shortcut(s?) to temporarily show these elements and allow interaction
+* Hide controls on things like Codepen
+  (maybe if there's no canvas but there's an iframe, present the iframe as above)
+  (also, set allowtransparency)
+
+* Ignore tiny canvases since that could be an issue
+  (<100px ain't no screensaver I ever seen)
+
+* Shortcut to temporarily show all elements and allow interaction with the page
 
 
-* (Automatic?) offline support?
+* Automatic offline support?
   (Maybe some crazy hack
   forcefully setting the <html manifest> attribute
   to load a CACHE MANIFEST that specifies everything stuff to be cached?)
   Maybe try to hook into chromes Save Webpage functionality...
-  Maybe just tell users to download webpages locally with their browser.
 
+
+* Some cool integration ideas:
+  * Make screen bounds available to the webpage,
+    so it can make stuff bounce around off them.
+  * Give windows depth in a 3d scene
+  * Let webpages access screen captures, use for
+    * Env maps in a 3d scene
+    * Screensavers involving transformations of the desktop
+      * The classic "Sience" screensaver
+      * Something with smearing
+      * Something with folding
+    * Things that bounce around on the screen,
+      interacting not simply with the bounds
+      but with the contents of the screen.
 
