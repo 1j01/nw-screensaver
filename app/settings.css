@@ -6,7 +6,7 @@ html, body {
 * {
 	box-sizing: border-box;
 	font-family: sans-serif;
-	transition: all .4s ease-in-out;
+	transition: all .2s ease-in-out;
 }
 * {
 	user-select: none;
@@ -32,7 +32,7 @@ p {
 article input {
 	width: 100%;
 	border-radius: 4px;
-	border: 1px solid gray;
+	border: 2px solid rgba(0, 0, 0, 0.3);
 	padding: 5px;
 	box-shadow:
 		0 0 7px rgba(0, 119, 255, 0.00),
@@ -40,25 +40,59 @@ article input {
 }
 input:focus {
 	outline: 0;
-	border-color: #0062D0;
-	box-shadow:
-		0 0 7px rgba(0, 119, 255, 0.51),
-		0 1px 4px rgba(0, 0, 0, 0.2) inset;
+	border-color: #248BFF;
+}
+input.error {
+	background: rgba(255, 0, 0, 0.5);
+}
+h1 {
+	border-bottom: 2px solid transparent;
+}
+h1:focus {
+	border-color: #248BFF;
+	outline: none;
+}
+article.ephemeral h1,
+article.ephemeral .x {
+	display: none;
+}
+article:not(.ephemeral) p {
+	display: none;
 }
 article.ephemeral {
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-	opacity: 0.3;
+	opacity: 0.6;
 }
-article.ephemeral * {
-	pointer-events: none;
-	-webkit-user-select: none;
-}
-article.ephemeral:focus {
-	opacity: 1;
+article.ephemeral.focus {
+	opacity: 0.8;
 }
 article.focus {
-	padding: 15px 20px;
+	/*padding: 15px 20px;*/
+	background: rgb(230, 250, 255);
 }
-
+.x {
+	float: right;
+	width: 2em;
+	height: 2em;
+	/*line-height: 2em;*/
+	text-align: center;
+	overflow: visible;
+	/*transform: scale(0.7);*/
+	
+	border: 0;
+	background: transparent;
+	/*font-weight: 900;*/
+	opacity: 0.5;
+	border-radius: 50%;
+}
+.x:hover {
+	opacity: 1;
+	background: #a00;
+	color: white;
+	border-radius: 0%;
+}
+/*.x span {
+	transform: scale(2.5);
+}*/
 
 
