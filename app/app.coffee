@@ -2,7 +2,7 @@
 nwgui = require "nw.gui"
 win = window.win = nwgui.Window.get()
 
-win_hidden = no
+win_hidden = yes
 
 show = ->
 	win_hidden = no
@@ -73,7 +73,11 @@ wv.addEventListener "contentload", ->
 	# waiting a tenth of a second means the window won't
 	# occasionally appear for a split second as a default-sized opaque
 	# (but borderless) window in the top left corner when starting up
-	setTimeout show, 100
+	setTimeout ->
+		if win_hidden
+			show()
+			global.settings_window?.focus()
+	, 100
 	
 	switch_later()
 
