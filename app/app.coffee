@@ -100,6 +100,8 @@ do updateURL = ->
 	if url isnt last_url
 		console.log "Yes!"
 		wv.src = last_url = url
+		localStorage.current = "skunk rabbit"
+		localStorage.current = current
 	else
 		console.log "No!"
 

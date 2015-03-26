@@ -30,5 +30,8 @@
     "resizable": false,
     "visible-on-all-workspaces": true,
     "show": false
+  },
+  "webkit": {
+    "plugin": true
   }
 }

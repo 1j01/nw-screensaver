@@ -1,8 +1,10 @@
 
 class ScreensaverConfigView
 	constructor: (n, {title, url}={})->
+		@n = n
 		
 		@element = document.body.appendChild document.createElement "article"
+		@element.n = n
 		
 		x = @element.appendChild document.createElement "button"
 		x.className = "x"
@@ -44,13 +46,29 @@ class ScreensaverConfigView
 			# @TODO: add http:// protocol if missing
 			set n, "url", new_url
 			localStorage.current = n
+			if @element.classList.contains "ephemeral"
+				new ScreensaverConfigView n + 1
 			@element.classList.remove "ephemeral"
+			upd()
 		
 		input.onkeydown = input.onkeypress = =>
 			input.classList.remove "error"
 	
-	focus: -> @element.classList.add "focus"
-	blur: -> @element.classList.remove "focus"
+	focus: ->
+		@element.classList.add "focus"
+		if @element.querySelector("input").value
+			localStorage.current = @n
+		upd()
+	
+	blur: ->
+		@element.classList.remove "focus"
+
+window.addEventListener "storage", upd = ->
+	console.log "storage"
+	for e in document.querySelectorAll "article"
+		console.log localStorage.current, e.n
+		active = localStorage.current is "#{e.n}"
+		e.classList[if active then "add" else "remove"] "active"
 
 
 do load = ->
@@ -64,4 +82,5 @@ do load = ->
 			new ScreensaverConfigView n
 			break
 		n++
+	do upd
 

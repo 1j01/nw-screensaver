@@ -27,6 +27,35 @@ article {
 }
 article.focus {
 	background: rgb(230, 250, 255);
+	box-shadow:
+		0 1px 10px rgba(0, 100, 255, 0.3),
+		0 1px 4px rgba(0, 0, 0, 0.3);
+}
+article.active {
+	/*background: rgb(230, 250, 155);*/
+}
+article.active {
+	padding-left: 30px;
+	position: relative;
+}
+article.active:before,
+article.active:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 25px;
+	width: 0;
+	height: 0;
+}
+article.active:before {
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+	border-left: 20px solid blue;
+}
+article.active:after {
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+	border-left: 20px solid white;
 }
 article.ephemeral h1,
 article.ephemeral .x {
