@@ -55,16 +55,27 @@ switch_later = ->
 wv.addEventListener "contentload", ->
 	
 	fn = ->
+		interact = (interact)->
+			if interact
+				document.body.classList.add "nw-screensaver-interact"
+			else
+				document.body.classList.remove "nw-screensaver-interact"
+		
+		window.addEventListener "keydown", (e)-> interact e.ctrlKey
+		window.addEventListener "keyup", (e)-> interact e.ctrlKey
+		
 		window.addEventListener "message", (e)->
 			respond = (data)-> e.source.postMessage data, e.origin
 			
 			if e.data.command is "getTitle"
 				respond title: document.title
+			if e.data.command is "interact"
+				interact e.data.interact
 		
 		canvases = document.querySelectorAll "canvas"
 		canvas = null
 		for c in canvases
-			canvas ?= c if c.width * c.height > 64 * 64
+			canvas ?= c if c.width * c.height > 100 * 100
 			canvas = c if c.width * c.height > canvas.width * canvas.height
 		
 		if canvas
@@ -86,7 +97,7 @@ wv.addEventListener "contentload", ->
 		* {
 			background: transparent !important;
 		}
-		body:not(.nw-screesaver-interacting) .nw-screensaver-hidden {
+		body:not(.nw-screensaver-interact) .nw-screensaver-hidden {
 			display: none !important;
 		}
 	"
@@ -101,6 +112,19 @@ wv.addEventListener "contentload", ->
 	, 100
 	
 	switch_later()
+
+
+sendInteraction = (interact)->
+	wv.contentWindow.postMessage
+		command: "interact"
+		interact: interact
+		wv.src
+
+window.addEventListener "storage", ->
+	sendInteraction (localStorage.interact is "true")
+
+window.addEventListener "keydown", (e)-> sendInteraction e.ctrlKey
+window.addEventListener "keyup", (e)-> sendInteraction e.ctrlKey
 
 # wv.addEventListener "loadstop", ->
 # 	console.log "The page has stopped loading."
@@ -177,12 +201,16 @@ do exit_upon_input = ->
 	exit_distance = 30
 	start = null
 	track = (event)->
+		# global.settings_window.window.console.log event.keyCode
+		# return if event.ctrlKey
+		return if localStorage.interact is "true"
 		start ?= event
 		dx2 = (start.clientX - event.clientX) ** 2
 		dy2 = (start.clientY - event.clientY) ** 2
 		exit() if dx2 + dy2 >= exit_distance ** 2
 	
 	hit = (event)->
+		return if event.ctrlKey
 		event.preventDefault()
 		if global.settings_window
 			global.settings_window.minimize()
@@ -190,10 +218,15 @@ do exit_upon_input = ->
 		else
 			exit()
 	
+	key = (event)->
+		exit()
+		# if event.keyCode is 
+		# console.log event.keyCode
+	
 	window.addEventListener "mousemove", track
 	window.addEventListener "mousedown", hit
 	window.addEventListener "touchstart", hit
-	window.addEventListener "keypress", exit
-	window.addEventListener "keydown", exit
+	window.addEventListener "keypress", key
+	window.addEventListener "keydown", key
 	window.addEventListener "click", hit
 

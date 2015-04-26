@@ -70,7 +70,6 @@ window.addEventListener "storage", upd = ->
 		active = localStorage.current is "#{e.n}"
 		e.classList[if active then "add" else "remove"] "active"
 
-
 do load = ->
 	n = 0
 	loop
@@ -83,4 +82,7 @@ do load = ->
 			break
 		n++
 	do upd
+
+window.addEventListener "keydown", (e)-> localStorage.interact = e.ctrlKey
+window.addEventListener "keyup", (e)-> localStorage.interact = e.ctrlKey
 

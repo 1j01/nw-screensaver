@@ -3,7 +3,11 @@
 
 A web screensaver built with [nw.js](http://nwjs.io/)
 supporting multi-monitor fullscreen
-with transparency
+with full transparency
+
+Controls and such are automatically hidden if there's a canvas on the page
+
+You can show hidden elements and interact with the screensaver with <kbd>Ctrl</kbd>
 
 
 ## Dev
@@ -21,20 +25,11 @@ with transparency
 
 * Screenshots
 
-* Application Icon
-
 * Allow local html pages from pasted file paths and from a Browse button
-
-* If there's at least one canvas on the page,
-  hide everything that's not a canvas element
-  or an ancestor of a canvas element.
 
 * Hide controls on things like Codepen
   (maybe if there's no canvas but there's an iframe, present the iframe as above)
   (also, set allowtransparency)
-
-* Ignore tiny canvases since that could be an issue
-  (<100px ain't no screensaver I ever seen)
 
 * Shortcut to temporarily show all elements and allow interaction with the page
 
