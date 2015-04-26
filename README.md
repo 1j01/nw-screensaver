@@ -31,14 +31,12 @@ You can show hidden elements and interact with the screensaver with <kbd>Ctrl</k
   (maybe if there's no canvas but there's an iframe, present the iframe as above)
   (also, set allowtransparency)
 
-* Shortcut to temporarily show all elements and allow interaction with the page
-
 
 * Automatic offline support?
   (Maybe some crazy hack
   forcefully setting the <html manifest> attribute
-  to load a CACHE MANIFEST that specifies everything stuff to be cached?)
-  Maybe try to hook into chromes Save Webpage functionality...
+  to load a CACHE MANIFEST that specifies everything should be cached??)
+  Maybe try to hook into chrome's "Save page as..." functionality...??
 
 
 * Some cool integration ideas:

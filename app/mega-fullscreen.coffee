@@ -9,22 +9,21 @@ win.__proto__.enterMegaFullscreen = ->
 	
 	do mega_fullscreen = =>
 		
-		bounds =
-			min_x: +Infinity
-			min_y: +Infinity
-			max_x: -Infinity
-			max_y: -Infinity
+		min_x = +Infinity
+		min_y = +Infinity
+		max_x = -Infinity
+		max_y = -Infinity
 		
 		for screen in Screen.screens
-			bounds.min_x = Math.min bounds.min_x, screen.bounds.x
-			bounds.min_y = Math.min bounds.min_y, screen.bounds.y
-			bounds.max_x = Math.max bounds.max_x, screen.bounds.x + screen.bounds.width
-			bounds.max_y = Math.max bounds.max_y, screen.bounds.y + screen.bounds.height
+			min_x = Math.min min_x, screen.bounds.x
+			min_y = Math.min min_y, screen.bounds.y
+			max_x = Math.max max_x, screen.bounds.x + screen.bounds.width
+			max_y = Math.max max_y, screen.bounds.y + screen.bounds.height
 		
-		win.x = bounds.min_x
-		win.y = bounds.min_y
-		win.width = bounds.max_x - bounds.min_x
-		win.height = bounds.max_y - bounds.min_y
+		win.x = min_x
+		win.y = min_y
+		win.width = max_x - min_x
+		win.height = max_y - min_y
 		
 	update_mega_fullscreen = ->
 		setTimeout mega_fullscreen, 150

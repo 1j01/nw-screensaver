@@ -61,16 +61,25 @@ wv.addEventListener "contentload", ->
 			else
 				document.body.classList.remove "nw-screensaver-interact"
 		
+		settings_open = (settings_open)->
+			if settings_open
+				document.body.classList.add "nw-screensaver-settings-open"
+			else
+				document.body.classList.remove "nw-screensaver-settings-open"
+		
 		window.addEventListener "keydown", (e)-> interact e.ctrlKey
 		window.addEventListener "keyup", (e)-> interact e.ctrlKey
 		
 		window.addEventListener "message", (e)->
 			respond = (data)-> e.source.postMessage data, e.origin
 			
-			if e.data.command is "getTitle"
-				respond title: document.title
-			if e.data.command is "interact"
-				interact e.data.interact
+			switch e.data.command
+				when "get title"
+					respond title: document.title
+				when "interact"
+					interact e.data.interact
+				when "settings open"
+					settings_open e.data.settings_open
 		
 		canvases = document.querySelectorAll "canvas"
 		canvas = null
@@ -80,18 +89,20 @@ wv.addEventListener "contentload", ->
 		
 		if canvas
 			for el in document.querySelectorAll "*"
-				# el.__styleDisplay = el.style.display
-				# el.style.display = "none"
 				el.classList.add "nw-screensaver-hidden"
 			el = canvas
 			while el
 				el.classList.remove "nw-screensaver-hidden"
-				# el.style.display = el.__styleDisplay # "block"
 				el = el.parentElement
 	
 	wv.executeScript code: "(#{fn})()"
 	
-	# wv.contentWindow???.postMessage command: "getTitle", "*"
+	# wv.contentWindow.postMessage command: "get title", wv.src
+	
+	wv.contentWindow.postMessage
+		command: "settings open"
+		settings_open: global.settings_window?
+		wv.src
 	
 	wv.insertCSS code: "
 		* {
@@ -99,6 +110,9 @@ wv.addEventListener "contentload", ->
 		}
 		body:not(.nw-screensaver-interact) .nw-screensaver-hidden {
 			display: none !important;
+		}
+		body:not(.nw-screensaver-interact):not(.nw-screensaver-settings-open) {
+			cursor: none !important;
 		}
 	"
 	
@@ -187,7 +201,6 @@ do handle_arguments = ->
 			process.exit()
 		when "/s"
 			# Run the Screen Saver.
-			do ->
 		else
 			# Show the Settings dialog box.
 			show_settings()
@@ -201,8 +214,6 @@ do exit_upon_input = ->
 	exit_distance = 30
 	start = null
 	track = (event)->
-		# global.settings_window.window.console.log event.keyCode
-		# return if event.ctrlKey
 		return if localStorage.interact is "true"
 		start ?= event
 		dx2 = (start.clientX - event.clientX) ** 2
@@ -218,15 +229,10 @@ do exit_upon_input = ->
 		else
 			exit()
 	
-	key = (event)->
-		exit()
-		# if event.keyCode is 
-		# console.log event.keyCode
-	
 	window.addEventListener "mousemove", track
 	window.addEventListener "mousedown", hit
 	window.addEventListener "touchstart", hit
-	window.addEventListener "keypress", key
-	window.addEventListener "keydown", key
+	window.addEventListener "keypress", exit
+	window.addEventListener "keydown", exit
 	window.addEventListener "click", hit
 
