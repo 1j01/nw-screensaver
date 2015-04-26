@@ -53,12 +53,30 @@ switch_later = ->
 	, 1000 * 30
 
 wv.addEventListener "contentload", ->
+	
 	fn = ->
 		window.addEventListener "message", (e)->
 			respond = (data)-> e.source.postMessage data, e.origin
 			
 			if e.data.command is "getTitle"
 				respond title: document.title
+		
+		canvases = document.querySelectorAll "canvas"
+		canvas = null
+		for c in canvases
+			canvas ?= c if c.width * c.height > 64 * 64
+			canvas = c if c.width * c.height > canvas.width * canvas.height
+		
+		if canvas
+			for el in document.querySelectorAll "*"
+				# el.__styleDisplay = el.style.display
+				# el.style.display = "none"
+				el.classList.add "nw-screensaver-hidden"
+			el = canvas
+			while el
+				el.classList.remove "nw-screensaver-hidden"
+				# el.style.display = el.__styleDisplay # "block"
+				el = el.parentElement
 	
 	wv.executeScript code: "(#{fn})()"
 	
@@ -67,6 +85,9 @@ wv.addEventListener "contentload", ->
 	wv.insertCSS code: "
 		* {
 			background: transparent !important;
+		}
+		body:not(.nw-screesaver-interacting) .nw-screensaver-hidden {
+			display: none !important;
 		}
 	"
 	
