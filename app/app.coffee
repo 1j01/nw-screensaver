@@ -116,6 +116,7 @@ do handle_arguments = ->
 	show_settings = ->
 		global.settings_window ?= nwgui.Window.open "settings.html",
 			"title": "Screensaver Settings"
+			"icon": "img/icon.png"
 			"toolbar": false
 			"transparent": false
 			"frame": true

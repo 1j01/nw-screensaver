@@ -24,6 +24,7 @@
   "main": "app.html",
   "window": {
     "title": "Screensaver",
+    "icon": "img/icon.png",
     "toolbar": false,
     "transparent": true,
     "frame": false,
