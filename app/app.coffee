@@ -229,10 +229,14 @@ do exit_upon_input = ->
 		else
 			exit()
 	
+	key = (event)->
+		return if event.ctrlKey
+		exit()
+	
 	window.addEventListener "mousemove", track
 	window.addEventListener "mousedown", hit
 	window.addEventListener "touchstart", hit
-	window.addEventListener "keypress", exit
-	window.addEventListener "keydown", exit
+	window.addEventListener "keypress", key
+	window.addEventListener "keydown", key
 	window.addEventListener "click", hit
 
