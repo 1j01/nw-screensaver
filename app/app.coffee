@@ -26,10 +26,18 @@ hide = ->
 wv = window.wv = document.body.appendChild document.createElement "webview"
 wv.allowtransparency = on
 
-current = 0
+current = (get "screensavers")[0].id
 
 window.addEventListener "message", (e)->
 	console.log "Received title:", e.data.title
+	# alert e.data.title
+	# hopefully, current won't change before we recieve the title
+	# console.log "Current title:", JSON.stringify ssget current, "title"
+	# current_title = ssget current, "title"
+	# # @TODO: replace title as long as it's marked as auto
+	# if (current_title is "Error") or (not current_title)
+	# 	ssset current, "title", e.data.title
+	# 	# hopefully titles won't contain XSS (actually, let's just get rid of the silly contentEditable titles)
 
 switch_later_tid = null
 switch_later = ->
@@ -39,22 +47,22 @@ switch_later = ->
 		console.log "win_hidden=#{win_hidden}"
 		unless win_hidden
 			console.log "Current is #{current}"
-			next = Number(current) + 1
+			next = nextAfter current
 			console.log "Next up is #{next}"
-			unless get next, "url"
-				console.log "Actually that url is #{get next, "url"}, so..."
-				next = 0
+			unless ssget next, "url"
+				console.log "Actually that url is #{ssget next, "url"}, so..."
+				next = first()
 				console.log "Next up is #{next}"
-			unless "#{next}" is "#{current}"
-				console.log "Next url is #{get next, "url"}"
-				if get next, "url"
-					localStorage.current = next
+			unless next is current
+				console.log "Next url is #{ssget next, "url"}"
+				if ssget next, "url"
+					set "current", next
 					updateURL()
 	, 1000 * 30
 
 wv.addEventListener "contentload", ->
 	
-	fn = ->
+	page_context_fn = ->
 		interact = (interact)->
 			if interact
 				document.body.classList.add "nw-screensaver-interact"
@@ -95,9 +103,9 @@ wv.addEventListener "contentload", ->
 				el.classList.remove "nw-screensaver-hidden"
 				el = el.parentElement
 	
-	wv.executeScript code: "(#{fn})()"
+	wv.executeScript code: "(#{page_context_fn})()"
 	
-	# wv.contentWindow.postMessage command: "get title", wv.src
+	wv.contentWindow.postMessage command: "get title", wv.src
 	
 	wv.contentWindow.postMessage
 		command: "settings open"
@@ -129,13 +137,14 @@ wv.addEventListener "contentload", ->
 
 
 sendInteraction = (interact)->
+	return unless wv.src.match /^http:/
 	wv.contentWindow.postMessage
 		command: "interact"
 		interact: interact
 		wv.src
 
 window.addEventListener "storage", ->
-	sendInteraction (localStorage.interact is "true")
+	sendInteraction (get "interact")
 
 window.addEventListener "keydown", (e)-> sendInteraction e.ctrlKey
 window.addEventListener "keyup", (e)-> sendInteraction e.ctrlKey
@@ -153,14 +162,17 @@ wv.addEventListener "loadabort", ->
 
 last_url = null
 do updateURL = ->
-	current = localStorage.current ? 0
-	url = get current, "url"
+	current = (get "current") ? (get "screensavers")[0].id
+	url = ssget current, "url"
+	unless url
+		current = (get "screensavers")[0].id
+		url = ssget current, "url"
 	console.log "Update to #{url} at #{current}?"
 	if url isnt last_url
 		console.log "Yes!"
 		wv.src = last_url = url
-		localStorage.current = "skunk rabbit"
-		localStorage.current = current
+		set "current", "HACK"
+		set "current", current
 	else
 		console.log "No!"
 
@@ -214,7 +226,7 @@ do exit_upon_input = ->
 	exit_distance = 30
 	start = null
 	track = (event)->
-		return if localStorage.interact is "true"
+		return if get "interact"
 		start ?= event
 		dx2 = (start.clientX - event.clientX) ** 2
 		dy2 = (start.clientY - event.clientY) ** 2

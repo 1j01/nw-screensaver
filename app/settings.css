@@ -57,13 +57,13 @@ article.active:after {
 	border-bottom: 20px solid transparent;
 	border-left: 20px solid white;
 }
-article.ephemeral h1,
+/*article.ephemeral h1,
 article.ephemeral .x {
 	display: none;
 }
 article:not(.ephemeral) p {
 	display: none;
-}
+}*/
 article.ephemeral {
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 	opacity: 0.6;
@@ -93,10 +93,22 @@ input:focus {
 input.error {
 	background: rgba(255, 0, 0, 0.5);
 }
-h1[contenteditable] {
-	border-bottom: 2px solid transparent;
+h1 {
+	/* Completely inexplicable extra space? Just tell it to use a better layout model. */
+	display: flex;
+	/* Seriously, I have no idea what that was about. */
 }
-h1[contenteditable]:focus {
+h1 > input {
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	background: none;
+	border-bottom: 2px solid transparent;
+	font-weight: bold;
+	font-size: 1em;
+}
+h1 > input:focus {
 	border-color: #248BFF;
 	outline: none;
 }

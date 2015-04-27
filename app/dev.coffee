@@ -12,6 +12,7 @@ if process?
 	process.on "uncaughtException", (e)->
 		console?.warn? "CRASH" unless window.CRASHED
 		window.CRASHED = true
+		console?.error? "Got exception:", e
 		nwwin.showDevTools() unless nwwin.isDevToolsOpen()
 		nwwin.show() if nwgui.App.manifest.window?.show is false
 	

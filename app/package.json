@@ -21,6 +21,10 @@
     "app",
     "desktop"
   ],
+  "dependencies": {
+    "react": "^0.13.2",
+    "react-script": "^1.2.1"
+  },
   "main": "app.html",
   "window": {
     "title": "Screensaver",
