@@ -11,7 +11,7 @@ show = ->
 	win.setTransparent yes
 	win.setVisibleOnAllWorkspaces yes
 	win.setShowInTaskbar no # this doesn't work consistently
-	setTimeout -> # so...
+	setTimeout -> # but...
 		win.setShowInTaskbar no # now it does
 	, 50 # idk
 	switch_later()
@@ -26,17 +26,17 @@ hide = ->
 wv = window.wv = document.body.appendChild document.createElement "webview"
 wv.allowtransparency = on
 
-current = (get "screensavers")[0].id
+current = first_ss()
 
 window.addEventListener "message", (e)->
 	console.log "Received title:", e.data.title
 	# alert e.data.title
 	# hopefully, current won't change before we recieve the title
-	# console.log "Current title:", JSON.stringify ssget current, "title"
-	# current_title = ssget current, "title"
+	# console.log "Current title:", JSON.stringify ss_get current, "title"
+	# current_title = ss_get current, "title"
 	# # @TODO: replace title as long as it's marked as auto
 	# if (current_title is "Error") or (not current_title)
-	# 	ssset current, "title", e.data.title
+	# 	ss_set current, "title", e.data.title
 	# 	# hopefully titles won't contain XSS (actually, let's just get rid of the silly contentEditable titles)
 
 switch_later_tid = null
@@ -47,15 +47,15 @@ switch_later = ->
 		console.log "win_hidden=#{win_hidden}"
 		unless win_hidden
 			console.log "Current is #{current}"
-			next = nextAfter current
+			next = next_ss_after current
 			console.log "Next up is #{next}"
-			unless ssget next, "url"
-				console.log "Actually that url is #{ssget next, "url"}, so..."
+			unless ss_get next, "url"
+				console.log "Actually that url is #{ss_get next, "url"}, so..."
 				next = first()
 				console.log "Next up is #{next}"
 			unless next is current
-				console.log "Next url is #{ssget next, "url"}"
-				if ssget next, "url"
+				console.log "Next url is #{ss_get next, "url"}"
+				if ss_get next, "url"
 					set "current", next
 					updateURL()
 	, 1000 * 30
@@ -112,6 +112,8 @@ wv.addEventListener "contentload", ->
 		settings_open: global.settings_window?
 		wv.src
 	
+	sendInteraction (get "interact")
+	
 	wv.insertCSS code: "
 		* {
 			background: transparent !important;
@@ -143,17 +145,9 @@ sendInteraction = (interact)->
 		interact: interact
 		wv.src
 
-window.addEventListener "storage", ->
-	sendInteraction (get "interact")
-
+window.addEventListener "storage", -> sendInteraction (get "interact")
 window.addEventListener "keydown", (e)-> sendInteraction e.ctrlKey
 window.addEventListener "keyup", (e)-> sendInteraction e.ctrlKey
-
-# wv.addEventListener "loadstop", ->
-# 	console.log "The page has stopped loading."
-# 	console.log "Here's the contentWindow:", wv.contentWindow
-# 	global.settings_window.console.log "The page has stopped loading."
-# 	global.settings_window.console.log "Here's the contentWindow:", wv.contentWindow
 
 wv.addEventListener "loadabort", ->
 	unless wv.src.match /error\.html/
@@ -162,11 +156,11 @@ wv.addEventListener "loadabort", ->
 
 last_url = null
 do updateURL = ->
-	current = (get "current") ? (get "screensavers")[0].id
-	url = ssget current, "url"
+	current = (get "current") ? first_ss()
+	url = ss_get current, "url"
 	unless url
-		current = (get "screensavers")[0].id
-		url = ssget current, "url"
+		current = first_ss()
+		url = ss_get current, "url"
 	console.log "Update to #{url} at #{current}?"
 	if url isnt last_url
 		console.log "Yes!"

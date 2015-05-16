@@ -6,6 +6,7 @@ NwBuilder = require 'node-webkit-builder'
 nw = new NwBuilder
 	files: './app/**'
 	platforms: ['osx32', 'osx64', 'win32', 'win64', 'linux32', 'linux64']
+	version: process.env.NW_VERSION ? "0.12.1"
 
 
 nw.on 'log', console.log
