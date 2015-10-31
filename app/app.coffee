@@ -51,7 +51,7 @@ switch_later = ->
 			console.log "Next up is #{next}"
 			unless ss_get next, "url"
 				console.log "Actually that url is #{ss_get next, "url"}, so..."
-				next = first()
+				next = first_ss()
 				console.log "Next up is #{next}"
 			unless next is current
 				console.log "Next url is #{ss_get next, "url"}"
@@ -90,18 +90,26 @@ wv.addEventListener "contentload", ->
 					settings_open e.data.settings_open
 		
 		canvases = document.querySelectorAll "canvas"
-		canvas = null
-		for c in canvases
-			canvas ?= c if c.width * c.height > 100 * 100
-			canvas = c if c.width * c.height > canvas.width * canvas.height
+		iframes = document.querySelectorAll "iframe"
 		
-		if canvas
+		isBigEnough = (element)->
+			style = getComputedStyle element
+			parseInt(style.width) * parseInt(style.height) > 300 * 300
+		
+		importantStuff = (canvas for canvas in canvases when isBigEnough canvas)
+		importantStuff = (iframe for iframe in iframes when isBigEnough iframe) if importantStuff.length is 0
+		
+		if importantStuff.length
 			for el in document.querySelectorAll "*"
 				el.classList.add "nw-screensaver-hidden"
-			el = canvas
-			while el
-				el.classList.remove "nw-screensaver-hidden"
-				el = el.parentElement
+				el.classList.remove "nw-important-stuff"
+			for importantElement in importantStuff
+				el = importantElement
+				el.classList.add "nw-important-stuff"
+				while el
+					el.classList.remove "nw-screensaver-hidden"
+					el.classList.add "nw-important-stuff-inside"
+					el = el.parentElement
 	
 	wv.executeScript code: "(#{page_context_fn})()"
 	
@@ -123,6 +131,20 @@ wv.addEventListener "contentload", ->
 		}
 		body:not(.nw-screensaver-interact):not(.nw-screensaver-settings-open) {
 			cursor: none !important;
+		}
+		body:not(.nw-screensaver-interact) .nw-important-stuff,
+		body:not(.nw-screensaver-interact) .nw-important-stuff-inside {
+			position: absolute !important;
+			left: 0 !important;
+			top: 0 !important;
+			right: 0 !important;
+			bottom: 0 !important;
+			width: 100% !important;
+			height: 100% !important;
+			padding: 0 !important;
+			margin: 0 !important;
+			border: 0 !important;
+			outline: 0 !important;
 		}
 	"
 	

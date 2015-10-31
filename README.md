@@ -2,19 +2,20 @@
 # NW Screensaver
 
 A web screensaver built with [nw.js](http://nwjs.io/)
-supporting multi-monitor fullscreen
-with full transparency
+supporting epic multi-monitor fullscreen
+with full transparency.
 
-Controls and such are automatically hidden if there's a canvas on the page
+Add as many screensavers as you want.
+You can find some cool ones [on the wiki](https://github.com/1j01/nw-screensaver/wiki/Good-Screensavers).
 
-You can show hidden elements and interact with the screensaver with <kbd>Ctrl</kbd>
+When there's a `<canvas>` (or `<iframe>`) on the page, other elements are automatically hidden.
 
-You can configure as many screensavers as you want
+You can show hidden elements and interact with the page by holding <kbd>Ctrl</kbd>.
 
 
 ## Dev
 
-1. Have `npm` (from [node.js](http://nodejs.org/) or [io.js](http://iojs.org/))
+1. Have `npm` (from [node.js](http://nodejs.org/))
 
 2. Run `npm install` in the project directory (or `npm i`)
 
@@ -23,12 +24,9 @@ You can configure as many screensavers as you want
 
 ## Todo
 
-* Package as a distributable installer
-  (through [NSIS](http://nsis.sourceforge.net/Main_Page)? maybe make an `nsis` package?)
+* Package as a proper Windows screensaver
 
 * Screenshots (or a photo to really show off the dual-screeny goodness)
-
-* Wiki page where people can list cool screensaver pages
 
 * Allow local html pages from pasted file paths and from a Browse button
 
@@ -44,12 +42,6 @@ You can configure as many screensavers as you want
 * Streamline the settings window / screensaver window flow
   (Maybe even make them into one)
 
-* Hide controls on things like Codepen
-  (maybe if there's no canvas but there's an iframe, present the iframe as it would a canvas)
-  (also, set allowtransparency)
-
-* Show any canvases that are big enough, not just one
-  (some applications use multiple canvases, even as layers)
 
 * Per-screensaver setting to disable hiding elements?
 
