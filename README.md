@@ -30,8 +30,6 @@ You can show hidden elements and interact with the page by holding <kbd>Ctrl</kb
 
 * Allow local html pages from pasted file paths and from a Browse button
 
-* Automatically grab the title from a page
-
 * Disable auto-switching when interacting
 
 * Maybe make the shortcut to interacting be "tap <kbd>Ctrl</kbd> to toggle"

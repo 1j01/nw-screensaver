@@ -30,14 +30,12 @@ current = first_ss()
 
 window.addEventListener "message", (e)->
 	console.log "Received title:", e.data.title
-	# alert e.data.title
 	# hopefully, current won't change before we recieve the title
-	# console.log "Current title:", JSON.stringify ss_get current, "title"
-	# current_title = ss_get current, "title"
-	# # @TODO: replace title as long as it's marked as auto
-	# if (current_title is "Error") or (not current_title)
-	# 	ss_set current, "title", e.data.title
-	# 	# hopefully titles won't contain XSS (actually, let's just get rid of the silly contentEditable titles)
+	current_title = ss_get current, "title"
+	console.log "Current title:", JSON.stringify current_title
+	# @TODO: replace title as long as it's marked as auto
+	if (current_title is "Error") or (not current_title)
+		ss_set current, "title", e.data.title
 
 switch_later_tid = null
 switch_later = ->
