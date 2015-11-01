@@ -40,6 +40,7 @@ class ScreensaverConfig extends React.Component
 				E "p", "Add a new screensaver by pasting a URL here:"
 			
 			E "input",
+				key: "url-input"
 				class: {error: @state.urlError}
 				value: url
 				onChange: (e)=> setURL e.target.value
