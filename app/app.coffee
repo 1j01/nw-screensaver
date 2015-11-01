@@ -41,24 +41,28 @@ window.addEventListener "message", (e)->
 
 switch_later_tid = null
 switch_later = ->
-	clearTimeout switch_later_tid
-	console.log "I'll switch later"
-	switch_later_tid = setTimeout ->
-		console.log "win_hidden=#{win_hidden}"
-		unless win_hidden
-			console.log "Current is #{current}"
-			next = next_ss_after current
-			console.log "Next up is #{next}"
-			unless ss_get next, "url"
-				console.log "Actually that url is #{ss_get next, "url"}, so..."
-				next = first_ss()
-				console.log "Next up is #{next}"
-			unless next is current
-				console.log "Next url is #{ss_get next, "url"}"
-				if ss_get next, "url"
-					set "current", next
-					updateURL()
-	, 1000 * 30
+	# hack to run in the right context?
+	setTimeout ->
+		switch_interval_seconds = (get "switch_interval") ? 30 # FIXME: duplicated default
+		clearTimeout switch_later_tid
+		console.log "I'll switch later"
+		switch_later_tid = setTimeout ->
+			console.log "win_hidden=#{win_hidden}"
+			if get "switch_interval_enabled"
+				unless win_hidden
+					console.log "Current is #{current}"
+					next = next_ss_after current
+					console.log "Next up is #{next}"
+					unless ss_get next, "url"
+						console.log "Actually that url is #{ss_get next, "url"}, so..."
+						next = first_ss()
+						console.log "Next up is #{next}"
+					unless next is current
+						console.log "Next url is #{ss_get next, "url"}"
+						if ss_get next, "url"
+							set "current", next
+							updateURL()
+		, 1000 * switch_interval_seconds
 
 wv.addEventListener "contentload", ->
 	

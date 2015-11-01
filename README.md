@@ -32,8 +32,6 @@ You can show hidden elements and interact with the page by holding <kbd>Ctrl</kb
 
 * Automatically grab the title from a page
 
-* Settings to configure the interval or disable switching screensavers
-
 * Disable auto-switching when interacting
 
 * Maybe make the shortcut to interacting be "tap <kbd>Ctrl</kbd> to toggle"

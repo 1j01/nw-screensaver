@@ -22,7 +22,7 @@ class ScreensaverConfig extends React.Component
 		active = (get "current") is id
 		focus = @state?.focus
 		
-		E "article",
+		E "article.screensaver",
 			class: {ephemeral, active, focus}
 			
 			unless ephemeral
@@ -54,6 +54,7 @@ class ScreensaverConfig extends React.Component
 		@setState focus: yes
 		if @props.url
 			set "current", @props.id
+			render()
 	
 	blur: ->
 		@setState focus: no
@@ -70,7 +71,27 @@ class Settings extends React.Component
 			id: ephemeralID
 			ephemeral: yes
 		
-		E ".settings", sscfgs
+		E ".settings",
+			E "section.cycling",
+				E "article",
+					E "label",
+						E "input",
+							type: "checkbox",
+							checked: get "switch_interval_enabled"
+							onChange: (e)->
+								set "switch_interval_enabled", e.target.checked
+								render()
+						" Cycle through screensavers"
+					E "label",
+						" every "
+						E "input",
+							type: "number"
+							value: (get "switch_interval") ? 30 # FIXME: duplicated default
+							onChange: (e)->
+								set "switch_interval", e.target.value
+								render()
+						" seconds"
+			E "section.screensavers", sscfgs
 
 do render = ->
 	React.render (E Settings), document.body
