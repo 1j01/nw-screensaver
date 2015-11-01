@@ -28,7 +28,7 @@ You can show hidden elements and interact with the page by holding <kbd>Ctrl</kb
 
 * Screenshots (or a photo to really show off the dual-screeny goodness)
 
-* Allow local html pages from pasted file paths and from a Browse button
+* A Browse button for adding local web pages as screensavers
 
 * Disable auto-switching when interacting
 

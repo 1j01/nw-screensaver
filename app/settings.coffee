@@ -10,13 +10,21 @@ class ScreensaverConfig extends React.Component
 		{id, title, url, ephemeral} = @props
 		
 		setURL = (new_url)=>
-			# @TODO: add http:// protocol if missing
+			
+			if new_url and (new_url.indexOf "://") is -1
+				if new_url.match /^(\/|[A-Z]:(\\|\/))/i
+					new_url = "file:///#{new_url.replace /^\//, ""}"
+				else
+					new_url = "http://#{new_url}"
+			
 			if @props.ephemeral
 				ephemeralID = guid()
 				add_ss {id, title, url: new_url}
 			else
 				ss_set id, "url", new_url
+			
 			set "current", id
+			
 			render()
 		
 		active = (get "current") is id
