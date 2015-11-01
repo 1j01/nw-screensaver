@@ -31,3 +31,6 @@ win.__proto__.enterMegaFullscreen = ->
 	Screen.on "displayBoundsChanged", update_mega_fullscreen
 	Screen.on "displayAdded", update_mega_fullscreen
 	Screen.on "displayRemoved", update_mega_fullscreen
+	# on Windows, if you change the taskbar settings the window will be
+	# moved to only one screen (without any of the above events firing)
+	win.on "resize", update_mega_fullscreen
