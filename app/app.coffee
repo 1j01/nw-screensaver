@@ -239,13 +239,20 @@ do handle_arguments = ->
 do exit_upon_input = ->
 	
 	exit = (event)->
-		process.exit() unless win.isDevToolsOpen() or global.settings_window
+		unless win.isDevToolsOpen() or global.settings_window
+			# process.exit() sends "exit" events and then calls process.reallyExit()
+			# process.reallyExit() closes the window (with an animation), leaving you on a blank grey non-desktop for a second
+			nwgui.App.quit() # freezes the window for as long before exiting immediately (without an animation, which is fine)
+			# this is not ideal; why does it take so long to close?
 	
 	exit_distance = 30
 	start = null
 	track = (event)->
 		return if get "interact"
-		start ?= event
+		if event.ctrlKey
+			start = event
+		else
+			start ?= event
 		dx2 = (start.clientX - event.clientX) ** 2
 		dy2 = (start.clientY - event.clientY) ** 2
 		exit() if dx2 + dy2 >= exit_distance ** 2

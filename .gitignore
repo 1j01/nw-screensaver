@@ -1,6 +1,11 @@
 
+wrapper.js
+app.zip
+nw-screensaver.scr
+
 build/
 cache/
+temp/
 node_modules/
 
 # Logs

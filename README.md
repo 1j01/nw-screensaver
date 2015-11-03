@@ -24,7 +24,12 @@ You can show hidden elements and interact with the page by holding <kbd>Ctrl</kb
 
 ## Todo
 
-* Package as a proper Windows screensaver
+* Windows screensaver
+  - Auto-update
+  - Exit faster
+  - Edit version info for the `scr` (Product Name in particular, as it's used as the name of the screensaver)
+  - Provide download
+
 
 * Screenshots (or a photo to really show off the dual-screeny goodness)
 
