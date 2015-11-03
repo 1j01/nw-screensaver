@@ -1,7 +1,7 @@
 {
   "name": "nw-screensaver",
   "description": "A web-based screensaver with transparency and multi-monitor support",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/nw-screensaver.git"
@@ -38,7 +38,7 @@
     "zip-folder": "^1.0.0"
   },
   "scripts": {
-    "start": "nwbuild -v 0.12.0 -r app",
+    "start": "nwbuild -v 0.12.3 -r app",
     "prepublish": "coffee -c wrapper.coffee",
     "build": "coffee -c wrapper.coffee & coffee make-wrapper.coffee",
     "postinstall": "coffee monkey-patch.coffee"

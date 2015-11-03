@@ -8,7 +8,8 @@ datadir = path.datadir "nw-screensaver"
 zip_file = path.join datadir, "app.zip"
 nwjs_dl_folder = path.join datadir, "nw.js"
 nwjs_exe = path.join nwjs_dl_folder, "nw.exe"
-nwjs_url = "http://dl.nwjs.io/v0.12.3/nwjs-v0.12.3-win-x64.zip"
+nwjs_version = "v0.12.3" # @FIXME defined separately in package.json
+nwjs_url = "http://dl.nwjs.io/#{nwjs_version}/nwjs-#{nwjs_version}-win-x64.zip"
 try fs.mkdirSync datadir
 try fs.mkdirSync nwjs_dl_folder
 
