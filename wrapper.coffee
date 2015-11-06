@@ -24,8 +24,6 @@ get_app_location = (callback)->
 run = ->
 	get_app_location (err, app_location)->
 		throw err if err
-		console.log nwjs_exe, app_location, process.argv
-		console.log "spawn", nwjs_exe, [app_location, process.argv.slice(2)...], detached: yes, stdio: ["ignore", "ignore", "ignore"]
 		proc = spawn nwjs_exe, [app_location, process.argv.slice(2)...], detached: yes, stdio: ["ignore", "ignore", "ignore"]
 		proc.unref()
 

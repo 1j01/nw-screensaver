@@ -109,3 +109,7 @@ window.addEventListener "storage", render
 window.addEventListener "keydown", (e)-> set "interact", e.ctrlKey
 window.addEventListener "keyup", (e)-> set "interact", e.ctrlKey
 
+window.addEventListener "dragover", (e)-> e.preventDefault()
+window.addEventListener "dragenter", (e)-> e.preventDefault()
+window.addEventListener "drop", (e)-> e.preventDefault()
+

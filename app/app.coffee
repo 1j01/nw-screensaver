@@ -196,6 +196,10 @@ do updateURL = ->
 
 window.addEventListener "storage", updateURL
 
+window.addEventListener "dragover", (e)-> e.preventDefault()
+window.addEventListener "dragenter", (e)-> e.preventDefault()
+window.addEventListener "drop", (e)-> e.preventDefault()
+
 
 win.enterMegaFullscreen()
 
