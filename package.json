@@ -1,7 +1,7 @@
 {
   "name": "nw-screensaver",
   "description": "A web-based screensaver with transparency and multi-monitor support",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/nw-screensaver.git"
@@ -12,7 +12,21 @@
   "license": "MIT",
   "keywords": [
     "screensaver",
+    "eyesaver",
+    "eye-saver",
+    "eyecandy",
+    "eye-candy",
     "multi-monitor",
+    "dual-screen",
+    "tri-screen",
+    "quad-screen",
+    "wow-screen",
+    "wow",
+    "screen",
+    "monitor",
+    "display",
+    "epic",
+    "fullscreen",
     "transparency",
     "node-webkit",
     "nw.js",
