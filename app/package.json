@@ -46,11 +46,10 @@
   "window": {
     "title": "Screensaver",
     "icon": "img/icon.png",
-    "toolbar": false,
     "transparent": true,
     "frame": false,
     "resizable": false,
-    "visible-on-all-workspaces": true,
+    "visible_on_all_workspaces": true,
     "show": false
   },
   "webkit": {

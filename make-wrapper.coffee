@@ -52,6 +52,6 @@ zip app_folder, zip_file, (err)->
 						lang: 1033
 						(err)->
 							throw err if err
-							# console.log "Make the exe into a GUI app so it doesn't show the console"
-							# change_exe_subsystem app_exe, "GUI"
+							console.log "Make the exe into a GUI app so it doesn't show the console"
+							change_exe_subsystem app_exe, "GUI"
 							console.log "Done!"

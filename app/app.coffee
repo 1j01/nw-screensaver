@@ -1,6 +1,5 @@
 
-nwgui = require "nw.gui"
-win = window.win = nwgui.Window.get()
+win = window.win = nw.Window.get()
 
 win_hidden = yes
 
@@ -8,7 +7,7 @@ show = ->
 	win_hidden = no
 	global.settings_window?.setAlwaysOnTop yes
 	win.show()
-	win.setTransparent yes
+	# win.setTransparent yes
 	win.setVisibleOnAllWorkspaces yes
 	win.setShowInTaskbar no # this doesn't work consistently
 	setTimeout -> # but...
@@ -207,26 +206,31 @@ win.enterMegaFullscreen()
 do handle_arguments = ->
 	
 	show_settings = ->
-		global.settings_window ?= nwgui.Window.open "settings.html",
+		options =
 			"title": "Screensaver Settings"
 			"icon": "img/icon.png"
-			"toolbar": false
 			"transparent": false
 			"frame": true
 			"resizable": true
-			"visible-on-all-workspaces": false
-			"always-on-top": false
+			"visible_on_all_workspaces": false
+			"always_on_top": false
 			"show": true
 		
-		global.settings_window.setAlwaysOnTop yes
-		global.settings_window.on "close", ->
-			nwgui.App.quit()
-		global.settings_window.on "focus", ->
-			if win_hidden
-				show()
-				global.settings_window.focus()
+		# TODO: make sure not to open a second window if show_settings is called twice
+		# now that Window.open is asynchronous
+		unless global.settings_window?
+			nw.Window.open "settings.html", options, (settings_window)->
+				global.settings_window = settings_window
+			
+				global.settings_window.setAlwaysOnTop yes
+				global.settings_window.on "close", ->
+					nw.App.quit()
+				global.settings_window.on "focus", ->
+					if win_hidden
+						show()
+						global.settings_window.focus()
 	
-	switch (nwgui.App.argv[0] ? "").toLowerCase()
+	switch (nw.App.argv[0] ? "").toLowerCase()
 		when "/c"
 			# Show the Settings dialog box, modal to the foreground window.
 			show_settings()
@@ -243,10 +247,10 @@ do handle_arguments = ->
 do exit_upon_input = ->
 	
 	exit = (event)->
-		unless win.isDevToolsOpen() or global.settings_window
+		unless global.settings_window # TODO: or if devtools are open
 			# process.exit() sends "exit" events and then calls process.reallyExit()
 			# process.reallyExit() closes the window (with an animation), leaving you on a blank grey non-desktop for a second
-			nwgui.App.quit() # freezes the window for as long before exiting immediately (without an animation, which is fine)
+			nw.App.quit() # freezes the window for as long before exiting immediately (without an animation, which is fine)
 			# this is not ideal; why does it take so long to close?
 	
 	exit_distance = 30

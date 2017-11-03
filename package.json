@@ -1,7 +1,7 @@
 {
   "name": "nw-screensaver",
   "description": "A web-based screensaver with transparency and multi-monitor support",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/nw-screensaver.git"
@@ -36,25 +36,25 @@
     "desktop"
   ],
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "chokidar": "^1.0.1",
-    "coffee-script": "^1.9.2",
-    "glob": "^5.0.6",
-    "node-webkit-builder": "^1.0.11"
+    "glob": "^5.0.6"
   },
   "dependencies": {
     "bufferpack": "0.0.6",
-    "coffee-script": "^1.10.0",
+    "coffeescript": "^2.0.2",
     "cpr": "^0.4.1",
     "nexe": "^0.4.1",
-    "nw-builder": "^2.0.2",
-    "nw-dev": "^1.2.3",
+    "nw-builder": "^3.5.1",
+    "nw-dev": "^3.0.1",
     "path-extra": "^1.0.3",
     "zip-folder": "^1.0.0"
   },
   "scripts": {
     "start": "coffee wrapper.coffee",
-    "prepublish": "coffee -c wrapper.coffee",
-    "build": "coffee -c wrapper.coffee & coffee make-wrapper.coffee",
+    "prepublish": "coffee --compile --transpile wrapper.coffee",
+    "build": "coffee --compile --transpile wrapper.coffee & coffee make-wrapper.coffee",
     "postinstall": "coffee monkey-patch.coffee"
   }
 }
