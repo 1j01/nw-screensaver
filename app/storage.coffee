@@ -62,7 +62,7 @@
 	new_default_id = guid()
 	set "screensavers", [
 		title: "Pipes"
-		url: "http://isaiahodhner.ml/pipes/"
+		url: "https://1j01.github.io/pipes/"
 		id: new_default_id
 	]
 	set "current", new_default_id
