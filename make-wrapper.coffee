@@ -32,14 +32,15 @@ zip app_folder, zip_file, (err)->
 		resourceFiles: [zip_file]
 		(err)->
 			throw err if err
+			# TODO: try Update instead of Delete and Add
 			console.log "Delete the Node.js icon from #{app_exe}"
 			winresourcer
 				operation: "Delete"
 				exeFile: path.resolve app_exe
-				resourceFile: path.resolve win_ico
+				# resourceFile: path.resolve win_ico # not needed for Delete
 				resourceType: "Icon"
 				resourceName: 1
-				lang: 1033
+				lang: 1033 # not needed for Delete (or Update)
 				(err)->
 					throw err if err
 					console.log "Add the new icon to #{app_exe}"
@@ -49,7 +50,7 @@ zip app_folder, zip_file, (err)->
 						resourceFile: path.resolve win_ico
 						resourceType: "Icon"
 						resourceName: 1
-						lang: 1033
+						lang: 1033 # (won't be needed for Update)
 						(err)->
 							throw err if err
 							console.log "Make the exe into a GUI app so it doesn't show the console"
