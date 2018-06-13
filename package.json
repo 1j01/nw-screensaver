@@ -55,6 +55,7 @@
     "start": "coffee wrapper.coffee",
     "prepublish": "coffee --compile --transpile wrapper.coffee",
     "build": "coffee --compile --transpile wrapper.coffee & coffee make-wrapper.coffee",
+    "build-debug": "coffee --compile --transpile wrapper.coffee & coffee --nodejs --inspect-brk make-wrapper.coffee",
     "postinstall": "coffee monkey-patch.coffee"
   }
 }
