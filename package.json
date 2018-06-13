@@ -36,17 +36,17 @@
     "desktop"
   ],
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "chokidar": "^1.0.1",
-    "glob": "^5.0.6"
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "chokidar": "^1.7.0",
+    "glob": "^5.0.15"
   },
   "dependencies": {
     "bufferpack": "0.0.6",
-    "coffeescript": "^2.0.2",
+    "coffeescript": "^2.3.1",
     "cpr": "^0.4.1",
-    "nexe": "^0.4.1",
-    "nw-builder": "^3.5.1",
+    "nexe": "^0.4.2",
+    "nw-builder": "^3.5.4",
     "nw-dev": "^3.0.1",
     "path-extra": "^1.0.3",
     "zip-folder": "^1.0.0"
