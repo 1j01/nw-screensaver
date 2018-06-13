@@ -28,6 +28,7 @@ run = ->
 	get_app_location (err, app_location)->
 		# console.log "app_location", app_location
 		throw err if err
+		# http://www.codersnotes.com/notes/something-rotten-in-the-core/
 		proc = spawn nwjs_exe, [app_location, process.argv.slice(2)...], detached: yes, stdio: "ignore"
 		proc.unref()
 		# without unref():
