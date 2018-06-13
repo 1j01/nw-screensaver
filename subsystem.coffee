@@ -27,4 +27,4 @@ module.exports = (exe_path, subsystem="gui")->
 	write PeHeaderOffset + 0x5C, struct.pack "<H", [subsystem_value]
 	# console.log "New subsystem value:", (struct.unpack "<H", read PeHeaderOffset + 0x5C, 2)[0]
 	
-	fs.close exe
+	fs.closeSync exe
