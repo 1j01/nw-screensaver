@@ -22,7 +22,7 @@ You can show hidden elements and interact with the page by holding <kbd>Ctrl</kb
 
 ## Install and Run
 
-There's no simple `scr` download yet, so these instructions are really for development:
+There's no prebuilt binary download yet, so these instructions are really for development:
 
 1. Install [Node.js](http://nodejs.org/) if you don't have it already (it comes with `npm`)
 2. [Clone the repo](https://help.github.com/articles/cloning-a-repository/)
