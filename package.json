@@ -52,9 +52,12 @@
     "zip-folder": "^1.0.0"
   },
   "scripts": {
-    "start": "coffee wrapper.coffee",
-    "prepublish": "coffee --compile --transpile wrapper.coffee",
-    "build": "coffee --compile --transpile wrapper.coffee & coffee make-wrapper.coffee",
-    "postinstall": "coffee monkey-patch.coffee"
+    "OLD:start": "coffee wrapper.coffee",
+    "OLD:prepublish": "coffee --compile --transpile wrapper.coffee",
+    "OLD:build": "coffee --compile --transpile wrapper.coffee & coffee make-wrapper.coffee",
+    "OLD:postinstall": "coffee monkey-patch.coffee",
+    "start": "nwbuild --mode=run --flavor=sdk --glob=false --version=0.26.3 --cacheDir=./node_modules/nw app",
+    "build": "nwbuild --mode=build --flavor=sdk --glob=false --version=0.26.3 --cacheDir=./node_modules/nw app",
+    "postinstall": "cd app && npm install"
   }
 }
