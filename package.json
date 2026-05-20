@@ -46,7 +46,7 @@
     "coffeescript": "^2.0.2",
     "cpr": "^0.4.1",
     "nexe": "^0.4.1",
-    "nw-builder": "^3.5.1",
+    "nw-builder": "^4.17.10",
     "nw-dev": "^3.0.1",
     "path-extra": "^1.0.3",
     "zip-folder": "^1.0.0"
