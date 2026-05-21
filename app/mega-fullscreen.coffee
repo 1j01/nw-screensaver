@@ -20,10 +20,14 @@ win.__proto__.enterMegaFullscreen = ->
 			max_x = Math.max max_x, screen.bounds.x + screen.bounds.width
 			max_y = Math.max max_y, screen.bounds.y + screen.bounds.height
 		
+		# Workaround: resizable must be true to set width/height as of NW.js v0.47.2
+		was_resizable = win.resizable
+		win.setResizable true
 		win.x = min_x
 		win.y = min_y
 		win.width = max_x - min_x
 		win.height = max_y - min_y
+		win.setResizable was_resizable
 		
 	update_mega_fullscreen = ->
 		setTimeout mega_fullscreen, 150
