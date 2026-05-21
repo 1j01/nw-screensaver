@@ -80,6 +80,13 @@ class Settings extends React.Component
 			ephemeral: yes
 		
 		E ".settings",
+			E "section.devtools",
+				E "button",
+					onClick: -> global.openScreensaverWebViewDevTools?()
+					"Open Screensaver Webpage DevTools"
+				E "button",
+					onClick: -> global.openScreensaverWindowDevTools?()
+					"Open Screensaver Window DevTools"
 			E "section.cycling",
 				E "article",
 					E "label",

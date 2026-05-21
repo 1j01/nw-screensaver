@@ -25,6 +25,12 @@ hide = ->
 wv = window.wv = document.body.appendChild document.createElement "webview"
 wv.allowtransparency = on
 
+global.openScreensaverWebViewDevTools = ->
+	wv.showDevTools true, null
+
+global.openScreensaverWindowDevTools = ->
+	win.showDevTools()
+
 current = first_ss()
 
 window.addEventListener "message", (e)->
