@@ -35,7 +35,7 @@ current = first_ss()
 
 window.addEventListener "message", (e)->
 	console.log "Received title:", e.data.title
-	# hopefully, current won't change before we recieve the title
+	# hopefully, current won't change before we receive the title
 	current_title = ss_get current, "title"
 	console.log "Current title:", JSON.stringify current_title
 	# @TODO: replace title as long as it's marked as auto

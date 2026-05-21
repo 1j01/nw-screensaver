@@ -15,7 +15,7 @@ and interesting visual elements brought to fullscreen.
 with all the distractions around it hidden. -->
 When there's a `<canvas>` on the page, other elements are automatically hidden.
 It'll also look for an `<iframe>` and fullscreen that in order to support
-jsfiddles, waybackmachine etc.
+JSFiddle, WaybackMachine etc.
 
 You can show hidden elements and interact with the page by holding <kbd>Ctrl</kbd>.
 
@@ -41,7 +41,7 @@ There's no prebuilt binary download yet, so these instructions are really for de
   - Provide download for the `scr` file
 
 
-* Add some screenshots to this README (or a photo to really show off the dual-screeny goodness; maybe a video?)
+* Add some screenshots to this README (or a photo to really show off the dual-screen-y goodness; maybe a video?)
 
 * A Browse button for adding local web pages as screensavers
 
