@@ -56,8 +56,8 @@
     "OLD:prepublish": "coffee --compile --transpile wrapper.coffee",
     "OLD:build": "coffee --compile --transpile wrapper.coffee & coffee make-wrapper.coffee",
     "OLD:postinstall": "coffee monkey-patch.coffee",
-    "start": "cd app && nwbuild --mode=run --flavor=sdk --glob=false --version=0.47.2 --cacheDir=../node_modules/nw --outDir=../out .",
-    "build": "cd app && nwbuild --mode=build --flavor=sdk --glob=false --version=0.47.2 --cacheDir=../node_modules/nw --outDir=../out .",
+    "start": "cd app && nwbuild --mode=run --flavor=sdk --glob=false --version=0.54.1 --cacheDir=../node_modules/nw --outDir=../out .",
+    "build": "cd app && nwbuild --mode=build --flavor=sdk --glob=false --version=0.54.1 --cacheDir=../node_modules/nw --outDir=../out .",
     "postinstall": "cd app && npm install"
   }
 }
