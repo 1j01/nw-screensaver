@@ -5,6 +5,7 @@ ephemeralID = guid()
 
 class ScreensaverConfig extends React.Component
 	constructor: ->
+		super()
 		@state = focus: no, urlError: no
 	render: ->
 		{id, title, url, ephemeral} = @props

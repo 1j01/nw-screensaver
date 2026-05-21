@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "bufferpack": "0.0.6",
-    "coffeescript": "^2.0.2",
+    "coffeescript": "^2.7.0",
     "cpr": "^0.4.1",
     "cspell-cli": "^10.0.0",
     "nexe": "^0.4.1",
