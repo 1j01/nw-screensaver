@@ -3,6 +3,7 @@ wrapper.js
 app.zip
 nw-screensaver.scr
 
+.nexe/
 out/
 build/
 cache/
