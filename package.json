@@ -39,14 +39,15 @@
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "chokidar": "^5.0.0",
-    "glob": "^13.0.6"
+    "concat-files": "^0.1.1",
+    "glob": "^13.0.6",
+    "winresourcer": "^0.9.0"
   },
   "dependencies": {
     "bufferpack": "0.0.6",
     "coffeescript": "^2.7.0",
     "cpr": "^3.0.1",
     "cspell-cli": "^10.0.0",
-    "nexe": "^3.3.7",
     "nw-builder": "^4.17.10",
     "nw-dev": "^3.0.1",
     "path-extra": "^4.3.0",
@@ -58,7 +59,7 @@
     "OLD:build": "coffee --compile --transpile wrapper.coffee & coffee make-wrapper.coffee",
     "OLD:postinstall": "coffee monkey-patch.coffee",
     "start": "cd app && nwbuild --mode=run --flavor=sdk --glob=false --version=0.54.1 --cacheDir=../node_modules/nw --outDir=../out .",
-    "build": "cd app && nwbuild --mode=build --flavor=sdk --glob=false --version=0.54.1 --cacheDir=../node_modules/nw --outDir=../out .",
+    "build": "cd app && nwbuild --mode=build --flavor=sdk --glob=false --version=0.54.1 --cacheDir=../node_modules/nw --outDir=../out . && cd .. && coffee make-wrapper.coffee",
     "postinstall": "cd app && npm install",
     "lint": "cspell-cli lint ."
   }
