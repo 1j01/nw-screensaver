@@ -39,9 +39,9 @@ run = ->
 if fs.existsSync nwjs_exe
 	run()
 else
-	do ->
-		get = await import("@nwutils/getter")
-		get {cache: nwjs_dl_folder, version: nwjs_version, flavor: nwjs_flavor}
-		.then run
-		.catch (err)->
-			console.error "Failed to download and unpack #{nwjs_url} to #{nwjs_dl_folder}: #{err}"
+	import("@nwutils/getter")
+		.then (get)->
+			get {cache: nwjs_dl_folder, version: nwjs_version, flavor: nwjs_flavor}
+			.then run
+			.catch (err)->
+				console.error "Failed to download and unpack #{nwjs_url} to #{nwjs_dl_folder}: #{err}"
