@@ -15,7 +15,7 @@ app_folder = "app"
 app_exe = "nw-screensaver.scr"
 zip_file = "app.zip"
 win_ico = "#{app_folder}/img/icon.ico"
-nw_exe = "#{app_folder}/nw-screensaver.exe" # this in the app folder... probably doing this wrong.
+nw_exe = "out/nw-screensaver.exe" # ...probably doing this wrong, idk
 
 
 replace_icon = (file, cb)->
@@ -28,6 +28,7 @@ replace_icon = (file, cb)->
 		resourceName: 1
 		lang: 1033
 		(err)->
+			# Error handling note: it actually just shows a dang message box if the resource isn't found.
 			return cb err if err
 			console.log "Add the new icon to #{app_exe}"
 			winresourcer
