@@ -36,20 +36,20 @@
     "desktop"
   ],
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "chokidar": "^1.0.1",
-    "glob": "^5.0.6"
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "chokidar": "^5.0.0",
+    "glob": "^13.0.6"
   },
   "dependencies": {
     "bufferpack": "0.0.6",
     "coffeescript": "^2.7.0",
-    "cpr": "^0.4.1",
+    "cpr": "^3.0.1",
     "cspell-cli": "^10.0.0",
-    "nexe": "^0.4.1",
+    "nexe": "^3.3.7",
     "nw-builder": "^4.17.10",
     "nw-dev": "^3.0.1",
-    "path-extra": "^1.0.3",
+    "path-extra": "^4.3.0",
     "zip-folder": "^1.0.0"
   },
   "scripts": {
