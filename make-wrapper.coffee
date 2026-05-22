@@ -2,12 +2,7 @@
 path = require "path"
 nexe = require "nexe"
 zip = require "zip-folder"
-
-winresourcer =
-	try
-		require "nw-builder/node_modules/winresourcer"
-	catch
-		require "winresourcer"
+winresourcer = require "winresourcer"
 
 change_exe_subsystem = require "./subsystem"
 
