@@ -1,14 +1,15 @@
 
+
 fs = require "fs"
 {spawn} = require "child_process"
 nexeres = try require "nexeres"
-path = require "path-extra"
+path = require "path"
+ospath = require "ospath"
 
 nwjs_version = "v0.26.3"
 nwjs_flavor = "sdk"
-nwjs_url = "http://dl.nwjs.io/#{nwjs_version}/nwjs-#{nwjs_flavor}-#{nwjs_version}-win-x64.zip"
 
-datadir = path.datadir "nw-screensaver"
+datadir = path.join ospath.data(), "nw-screensaver"
 zip_file = path.join datadir, "app.zip"
 nwjs_dl_folder = path.join datadir, "nwjs-#{nwjs_flavor}-#{nwjs_version}"
 nwjs_exe = path.join nwjs_dl_folder, "nw.exe"
@@ -38,8 +39,9 @@ run = ->
 if fs.existsSync nwjs_exe
 	run()
 else
-	downloader = require "nw-builder/lib/downloader.js"
-	downloader.downloadAndUnpack nwjs_dl_folder, nwjs_url
-	.then run
-	.catch (err)->
-		console.error "Failed to download and unpack #{nwjs_url} to #{nwjs_dl_folder}: #{err}"
+	do ->
+		get = await import("@nwutils/getter")
+		get {cache: nwjs_dl_folder, version: nwjs_version, flavor: nwjs_flavor}
+		.then run
+		.catch (err)->
+			console.error "Failed to download and unpack #{nwjs_url} to #{nwjs_dl_folder}: #{err}"

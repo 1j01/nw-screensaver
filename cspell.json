@@ -3,7 +3,7 @@
 		"out",
 		"lib",
 		"img",
-		"node_modules",
+		"node_modules"
 	],
 	"words": [
 		"absellipse",
@@ -31,6 +31,8 @@
 		"nexeres",
 		"nwbuild",
 		"nwjs",
+		"nwutils",
+		"ospath",
 		"Phong",
 		"pids",
 		"sscfgs",
