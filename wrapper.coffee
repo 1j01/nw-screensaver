@@ -39,9 +39,10 @@ run = ->
 if fs.existsSync nwjs_exe
 	run()
 else
-	import("@nwutils/getter")
-		.then (get)->
-			get {cache: nwjs_dl_folder, version: nwjs_version, flavor: nwjs_flavor}
-			.then run
-			.catch (err)->
-				console.error "Failed to download and unpack #{nwjs_url} to #{nwjs_dl_folder}: #{err}"
+	console.error "NW.js executable not found at #{nwjs_exe}. Crap!"
+	# import("@nwutils/getter")
+	# 	.then (get)->
+	# 		get {cache: nwjs_dl_folder, version: nwjs_version, flavor: nwjs_flavor}
+	# 		.then run
+	# 		.catch (err)->
+	# 			console.error "Failed to download and unpack #{nwjs_url} to #{nwjs_dl_folder}: #{err}"
